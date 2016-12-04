@@ -1,44 +1,40 @@
-#include <new>
+#include <cstdlib>
 #include "mergesort.h"
 
 void Merge(ElemType *arr,int l,int m,int r)
 {
-	int len1 = m - l + 1;
-	int len2 = r - m;
-	
-	ElemType *la = new ElemType[len1];
-	ElemType *ra = new ElemType[len2];
+	int i = l;
+	int j = m + 1;
+	int k = 0;
 
-	for(int i = 0; i < len1; ++i)
+	ElemType *t = (ElemType*)malloc((r - l + 1) * sizeof(ElemType));
+
+	if(!t)
+		return;
+
+	while(i <= m && j <= r)
 	{
-		la[i] = arr[l++];	
-	}	
-
-	for(int i = 0; i < len2; ++i)
-		ra[i] = arr[++m];
-
-	int rIdx = 0;
-	int lIdx = 0;
-	for(int i = l; i <= r; ++i)
-	{
-		if(la[lIdx] < ra[rIdx])
-		{
-			arr[i] = la[lIdx];
-			++lIdx;
-		}
-		else
-		{
-			arr[i] = ra[rIdx];
-			++rIdx;
-		}
+		t[k++] = (arr[i] < arr[j]) ? arr[i++] : arr[j++];
 	}
+
+	while(i <= m)
+		t[k++] = arr[i++];
+
+	while(j <= r)
+		t[k++] = arr[j++];
+
+	for(i = 0,j = l;j <= r;i++,j++)
+		arr[j] = t[i];
+
+	free(t);
 }
 
 void MergeSort(ElemType *arr,int begin,int end)
 {
+	int mid = 0;
 	if(begin < end)
 	{
-		int mid = (begin + end) / 2;
+		mid = (begin + end) / 2;
 		MergeSort(arr,begin,mid);
 		MergeSort(arr,mid + 1,end);
 		Merge(arr,begin,mid,end);
