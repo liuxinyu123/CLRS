@@ -1,19 +1,37 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 #include "maxsubsquence.h"
 #include "printarray.h"
 
 int main(int argc,char **argv)
 {
-	int a[] = {13,-3,-25,20,-3,-16,-23,18,20,-7,12,-5,-22,-15,-4,7};
-	int len = sizeof(a) / sizeof(int);
+	const int Len = 100000;
+	int *a = new int[Len];
+	srand(time(0));
+
+	for(int i = 0; i < Len; ++i)
+		a[i] = rand()%1000;
 	
-	ps p = FindMax(a,0,len - 1);
+	for(int i = 0; i < Len - 1; ++i)
+		a[i] -= a[i + 1];
+
+	clock_t start1 = clock();
+	int sum1 = FindMax1(a,Len);
+	clock_t end1 = clock();
+
+	clock_t start2 = clock();
+	int sum2 = FindMax(a,0,Len - 1);
+	clock_t end2 = clock();
 
 	std::cout << "The array is : " << std::endl;
-	PrintArray(a,len);
+	PrintArray(a,Len);
 
-	std::cout << "The maxsubsquence's sum is " << p -> sum << 
-			" is from index of " << p -> begin << " to " << p -> end << std::endl;
+	std::cout << "The maxsubsquence's sum is " << sum1 << std::endl;
+	std::cout << "Time elapse: " << static_cast<double>(end1 - start1) / CLOCKS_PER_SEC << std::endl;  
+
+	std::cout << "The maxsubsquence's sum is " << sum2 << std::endl;
+	std::cout << "Time elapse: " << static_cast<double>(end2 - start2) / CLOCKS_PER_SEC << std::endl;  
 
 	return 0;
 }

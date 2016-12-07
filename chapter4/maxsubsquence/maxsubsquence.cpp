@@ -1,75 +1,63 @@
 #include <climits>
 #include "maxsubsquence.h"
 
-ps FindMaxCrossArray(int *arr,Index lo,Index mid,Index hi)
+int FindMax1(int *arr,int len)
 {
-	ps p;
-	
-	int leftSum = INT_MIN;
-	int leftIndex = mid;
-	int left = mid;
+	int maxSum = arr[0];
+
+	for(int i = 0; i < len; ++i)
+	{
+		int sum = 0;
+
+		for(int j = i; j < len; ++j)
+		{
+			sum += arr[j];
+			if(sum > maxSum)
+				maxSum = sum;
+		}
+	}
+
+	return maxSum;
+}
+
+int FindMaxCrossArray(int *arr,int lo,int mid,int hi)
+{
+	int leftSum = arr[mid];
 	int sum = 0;
-	while(leftIndex >= lo)
+	for(int i = mid; i >= lo; --i)
 	{
-		sum += arr[leftIndex];
+		sum += arr[i];
 		if(sum > leftSum)
-		{
 			leftSum = sum;
-			left = leftIndex;
-		}
+	}	
 
-		--leftIndex;
-	}
-	
 	sum = 0;
-	int rightIndex = mid + 1;
-	int right = mid + 1;
-	int rightSum = INT_MIN;
-	while(rightIndex <= hi)
+	int rightSum = arr[mid + 1];
+	for(int i = mid + 1; i <= hi; ++i)
 	{
-		sum += arr[rightIndex];
+		sum += arr[i];
 		if(sum > rightSum)
-		{
 			rightSum = sum;
-			right = rightIndex;
-		}
 	}
 
-	p -> begin = left;
-	p -> end = right;
-	p -> sum = leftSum + rightSum;
-
-	return p;
+	return (leftSum + rightSum);
 }
 
-ps FindMax(int *arr,Index lo,Index hi)
+int FindMax(int *arr,int lo,int hi)
 {
-	ps lp;
-	ps rp;
-	ps cp;
-	ps p;
-
 	if(lo == hi)
-	{
-		p -> begin = lo;
-		p -> end = hi;
-		p -> sum = arr[lo];
-
-		return p;
-	}
-
+		return arr[lo];
+		
+	int mid = (lo + hi) / 2;
+	int leftMax = FindMax(arr,lo,mid);
+	int rightMax = FindMax(arr,mid + 1,hi);
+	int crossMax = FindMaxCrossArray(arr,lo,mid,hi);
+	
+	if(leftMax >= rightMax && leftMax >= crossMax)
+		return leftMax;
+	else if(rightMax >= leftMax && rightMax >= crossMax)
+		return rightMax;
 	else
-	{
-		int mid = (lo + hi) / 2;
-		lp = FindMax(arr,lo,mid);
-		rp = FindMax(arr,mid + 1,hi);
-		cp = FindMaxCrossArray(arr,lo,mid,hi);
-	}
-
-	if(lp -> sum > rp -> sum && lp -> sum > cp -> sum)
-		return lp;
-	else if(rp -> sum > lp -> sum && rp -> sum > cp -> sum)
-		return rp;
-	else
-		return cp;
+		return crossMax;
 }
+

@@ -1,18 +1,8 @@
 #ifndef _MAXSUBSQUENCE_H_
 #define _MAXSUBSQUENCE_H_
 
-typedef int Index;
-
-struct s
-{
-	Index begin;
-	Index end;
-	int sum;
-};
-
-typedef s *ps;
-
-ps FindMaxCrossArry(int *arr,Index lo,Index mid,Index hi);
-ps FindMax(int *arr,Index lo,Index hi);
+int FindMaxCrossArry(int *arr,int lo,int mid,int hi);
+int FindMax(int *arr,int lo,int hi);
+int FindMax1(int *arr,int len);
 
 #endif
