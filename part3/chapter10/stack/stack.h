@@ -13,6 +13,10 @@ public:
 			:cap (c), bottom (new T[cap]), first_empty (bottom)
 	   	{
 		}
+		~Stack ()
+		{
+			delete [] bottom;
+		}
 		bool isEmpty () const
 		{
 			return size () == 0; 
