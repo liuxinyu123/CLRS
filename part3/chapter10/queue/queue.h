@@ -12,6 +12,10 @@ class Queue
 public:
 		Queue (int c = DefaultCapacity)
 			:cap (c), array (new T[cap]), head (0), tail (0) {}
+		~Queue ()
+		{
+			delete [] array;
+		}
 		void enqueue (const T &e)
 		{
 			if (isFull ())
