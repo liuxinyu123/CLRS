@@ -9,8 +9,8 @@ template<typename T>
 class Stack
 {
 public:
-		Stack (int cap = DefaultSize)
-			:capacity (cap), bottom (new T[cap]), first_empty (bottom)
+		Stack (int c = DefaultSize)
+			:cap (c), bottom (new T[cap]), first_empty (bottom)
 	   	{
 		}
 		bool isEmpty () const
@@ -20,6 +20,13 @@ public:
 		int size () const
 		{
 			return first_empty - bottom;
+		}
+		T top () const
+		{
+			if (isEmpty ())
+				throw std::out_of_range ("overflow");
+			auto top = first_empty - 1;
+			return *top;
 		}
 		void push_back (const T &e)
 		{
@@ -33,6 +40,10 @@ public:
 				throw std::out_of_range ("underflow");
 			return *(--first_empty);
 		}
+		int capacity () const
+		{
+			return cap;
+		}
 		//void print () const
 		//{
 			//for (int i = 0, T *be = bottom; i < size (); ++i)
@@ -40,13 +51,13 @@ public:
 			//std::cout << std::endl;
 		//}
 private:
-		int capacity;
+		int cap;
 		T *bottom;
 		T *first_empty;
 private:
 		bool isFull () const
 		{
-			return size () == capacity;
+			return size () == cap;
 		}
 };
 
