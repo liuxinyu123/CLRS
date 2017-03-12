@@ -13,7 +13,7 @@ template<typename T>
 void insertion_sort (T *arr, int sz);//从前向后比较，然后在移动
 
 template<typename T>
-void insertion_sort_A (T *arr, int sz);//从后向前比较，同时移动,利用了交换技术
+void insertion_sort_A (T *arr, int sz);//从后向前比较，同时移动
 
 template<typename T>
 void print_array (T *arr, int sz);
@@ -84,9 +84,9 @@ void insertion_sort_A (T *arr, int sz)
 		while (j >= 0 && arr[j] > key)
 		{
 			arr[j + 1] = arr[j];
-			arr[j] = key;
 			--j;
 		}
+		arr[j + 1] = key;//因为有--j，所以要+1
 	}
 }
 
