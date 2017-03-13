@@ -60,7 +60,15 @@ void merge (T *arr, int p, int r, int q)//合并已经排好序的arr[p,r] arr[r
 	
 	int i = 0;//lArr 的索引
 	int j = 0;//rArr的索引
-	
+
+	while (p <= r)
+	{
+		if (lArr[i] < rArr[j] || j >= rsz)
+			arr[p++] = lArr[i++];
+		else 
+			arr[p++] = rArr[j++];
+	}
+/*	
 	while (i < lsz && j < rsz)//lArr和rArr任何一个都不为空
 	{
 		if (lArr[i] < rArr[j])
@@ -79,6 +87,10 @@ void merge (T *arr, int p, int r, int q)//合并已经排好序的arr[p,r] arr[r
 		for (;i < lsz; ++i)
 			arr[p++] = lArr[i];
 	}
+*/
+
+	delete [] lArr;
+	delete [] rArr;
 		
 }
 
