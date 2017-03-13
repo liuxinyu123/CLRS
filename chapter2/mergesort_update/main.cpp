@@ -30,7 +30,7 @@ int main (int argc, char *argv[])
 
 void test_merge_sort ()
 {
-	int iArr[] = {23, 44, 43, 2, 355, 12, 45, -23, 55};
+	int iArr[] = {23, 44, 43, 2, 355, 12, 45, -23};
 	int sz = sizeof (iArr) / sizeof (int);
 
 	cout << "Before sort: " << endl;
@@ -55,39 +55,58 @@ void merge (T *arr, int p, int r, int q)//合并已经排好序的arr[p,r] arr[r
 	T *lArr = new T[lsz];
 	T *rArr = new T[rsz];
 
-	copy_array (arr, lArr, lsz);
-	copy_array (arr + lsz, rArr, rsz);
+	copy_array (arr + p, lArr, lsz);
+	copy_array (arr + r + 1, rArr, rsz);
 	
 	int i = 0;//lArr 的索引
 	int j = 0;//rArr的索引
-
+/*
 	while (p <= r)
 	{
-		if (lArr[i] < rArr[j] || j >= rsz)
+		if (i < lsz && j < rsz)
+		{
+			if (lArr[i] < rArr[j])
+				arr[p++] = lArr[i++];
+			else
+				arr[p++] = rArr[j++];
+		}
+		else if (i >= lsz)
+			arr[p++] = rArr[j++];
+		else
+			arr[p++] = lArr[++i];
+	}
+*/
+/*
+	while (p <= r)
+	{
+		if (i < lsz && j >= rsz)
 			arr[p++] = lArr[i++];
-		else 
+		if (j < rsz && i >= lsz)
+			arr[p++] = rArr[j++];
+		if (i < lsz && j < rsz && lArr[i] < rArr[j])
+			arr[p++] = lArr[i++];
+		if (i < lsz && j < rsz && rArr[j] < lArr[i])
 			arr[p++] = rArr[j++];
 	}
-/*	
+*/
+	
 	while (i < lsz && j < rsz)//lArr和rArr任何一个都不为空
 	{
 		if (lArr[i] < rArr[j])
 			arr[p++] = lArr[i++];		
 		else
-			arr[p++] = rArr[j];
+			arr[p++] = rArr[j++];
 	}
 
-	if (i >= lsz)//lArr空了
+	while (i < lsz)//lArr不为空
 	{
-		for (;j < rsz; ++j)
-			arr[p++] = rArr[j];
+		arr[p++] = rArr[i++];
 	}
-	else
+	while (j < rsz)//rArr 不为空
 	{
-		for (;i < lsz; ++i)
-			arr[p++] = lArr[i];
+		arr[p++] = lArr[j++];
 	}
-*/
+
 
 	delete [] lArr;
 	delete [] rArr;
