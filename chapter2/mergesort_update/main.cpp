@@ -12,7 +12,7 @@ template<typename T>
 void merge (T *arr, int p, int r, int q);
 
 template<typename T>
-void merge_sort (T *arr, int l, int m, int r);
+void merge_sort (T *arr, int l, int r);
 
 template<typename T>
 void copy_array (T *sArr, T *dArr, int sz);
@@ -36,7 +36,7 @@ void test_merge_sort ()
 	cout << "Before sort: " << endl;
 	print_array (iArr, sz);
 
-	merge_sort (iArr, 0, (sz - 1) / 2, sz - 1);
+	merge_sort (iArr, 0, sz - 1);
 	
 	cout << "After sort: " << endl;
 	print_array (iArr, sz);
@@ -61,24 +61,38 @@ void merge (T *arr, int p, int r, int q)//合并已经排好序的arr[p,r] arr[r
 	int i = 0;//lArr 的索引
 	int j = 0;//rArr的索引
 	
-	while (i >= lsz || j >= rsz)//lArr和rArr任何一个为空
+	while (i < lsz && j < rsz)//lArr和rArr任何一个都不为空
 	{
 		if (lArr[i] < rArr[j])
 			arr[p++] = lArr[i++];		
 		else
 			arr[p++] = rArr[j];
 	}
+
+	if (i >= lsz)//lArr空了
+	{
+		for (;j < rsz; ++j)
+			arr[p++] = rArr[j];
+	}
+	else
+	{
+		for (;i < lsz; ++i)
+			arr[p++] = lArr[i];
+	}
 		
 }
 
 template<typename T>
-void merge_sort (T *arr, int l, int m, int r)
+void merge_sort (T *arr, int l, int r)
 {
-	merge_sort (arr, l, (l + m) / 2, m);
-	merge_sort (arr, m + 1, (m + r) / 2, r);
-	merge (arr, l, m, r);
+	if (l < r)
+	{
+		int m = (l + r) / 2;
+		merge_sort (arr, l, m);
+		merge_sort (arr, m + 1, r);
+		merge (arr, l, m, r);
+	}	
 }
-
 template<typename T>
 void copy_array (T *sArr, T *dArr, int sz)
 {
