@@ -44,7 +44,15 @@ void test_merge_sort ()
 
 void test_merge_sort_A ()
 {
+	string strArr[] = {"hello", "world", "what", "are", "you", "doing", "fuck", "you", "sorry"};
+	int sz = sizeof (strArr) / sizeof (string);
 
+	cout << "Before sort: " << endl;
+	print_array (strArr, sz);
+
+	merge_sort (strArr, 0, sz - 1);
+	cout << "After sort: " << endl;
+	print_array (strArr, sz);
 }
 
 template<typename T>
