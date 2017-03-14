@@ -57,6 +57,8 @@ void merge (T *arr, int p, int r, int q)//合并已经排好序的arr[p,r] arr[r
 
 	copy_array (arr + p, lArr, lsz);
 	copy_array (arr + r + 1, rArr, rsz);
+	//print_array (lArr, lsz);
+	//print_array (rArr, rsz);
 	
 	int i = 0;//lArr 的索引
 	int j = 0;//rArr的索引
@@ -89,22 +91,22 @@ void merge (T *arr, int p, int r, int q)//合并已经排好序的arr[p,r] arr[r
 			arr[p++] = rArr[j++];
 	}
 */
-	
+	int k = p;	
 	while (i < lsz && j < rsz)//lArr和rArr任何一个都不为空
 	{
-		if (lArr[i] < rArr[j])
-			arr[p++] = lArr[i++];		
+		if (lArr[i] <= rArr[j])
+			arr[k++] = lArr[i++];		
 		else
-			arr[p++] = rArr[j++];
+			arr[k++] = rArr[j++];
 	}
 
 	while (i < lsz)//lArr不为空
 	{
-		arr[p++] = rArr[i++];
+		arr[k++] = lArr[i++];
 	}
 	while (j < rsz)//rArr 不为空
 	{
-		arr[p++] = lArr[j++];
+		arr[k++] = rArr[j++];
 	}
 
 
