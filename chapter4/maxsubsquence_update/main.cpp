@@ -5,6 +5,7 @@ using std::endl;
 
 int max_subsquence_A (int *arr, int sz, int &l, int &r);//转化为增量，右端索引可以求出，但是左端不太好求，本程序所求左端不正确
 int max_subsquence_B (int *arr, int sz, int &l, int &r);//暴力求解
+int max_subsquence_recursive (int *arr, int l, int r);//最大子数组的递归求解
 
 void print_array (int *arr, int sz);
 void test_max_subsquence_A ();
@@ -97,4 +98,15 @@ int max_subsquence_B (int *arr, int sz, int &l, int &r)//暴力求解
 	}
 
 	return max;
+}
+
+int max_subsquence_recursive (int *arr, int l, int r)//arr[l,r]
+{
+	if (l < r)
+	{
+		int mid = (l + r) / 2;
+		int lmax = max_subsquence_recursive (arr, l, mid);
+		int rmax = max_subsquence_recursive (arr, mid + 1, r);
+
+	}
 }
