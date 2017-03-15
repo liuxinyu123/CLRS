@@ -1,10 +1,13 @@
 #ifndef _MAT_H_
 #define _MAT_H_
 
+#include <ostream>
+
 template<typename T>
 class Mat
 {
 
+		friend std::ostream& operator<< (std::ostream &os, const Mat<T> &m);
 public:
 		Mat (const int r, const int c, const T *arr)
 			:_row (r), _col (c), _data (new T[_row * _col]) 

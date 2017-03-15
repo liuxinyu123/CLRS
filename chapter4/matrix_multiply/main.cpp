@@ -15,5 +15,8 @@ int main (int argc, char *argv[])
 
 void test_mat ()
 {
+	int iArr[] = {1, 3, 5, 7};
+	Mat<int> iMat(2, 2, iArr);
 
+	//cout << iMat << endl;
 }
