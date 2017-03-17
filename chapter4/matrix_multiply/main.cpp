@@ -18,5 +18,6 @@ void test_mat ()
 	int iArr[] = {1, 3, 5, 7};
 	Mat<int> iMat(2, 2, iArr);
 
-	//cout << iMat << endl;
+	cout << iMat << endl;
+	cout << iMat.row () << " " << iMat.column () << endl;
 }

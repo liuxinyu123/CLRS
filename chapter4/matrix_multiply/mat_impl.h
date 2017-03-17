@@ -1,3 +1,6 @@
+#ifndef _MAT_IMPL_H_
+#define _MAT_IMPL_H_
+
 #include <iostream>
 
 template<typename T>
@@ -23,17 +26,21 @@ Mat<T>& Mat<T>::operator= (const Mat<T> &m)
 }
 
 template<typename T>
-std::ostream& operator<< (std::ostream &os, const Mat<T> &m)
+std::ostream& operator << (std::ostream &os, const Mat<T> &m)
 {
 	int idx = 0;
 	for (int i = 0; i < m._row; ++i)
 	{
 		for (int j = 0; j < m._col; ++j)
 		{
-			if (((i + 1) * (j + 1)) % m._col == 0)
-				std::cout << std::endl;
 			std::cout << m._data[idx++] << " ";
 		}
+
+		std::cout << std::endl;
 	}
 
+	return os;
+
 }
+
+#endif
