@@ -15,9 +15,16 @@ int main (int argc, char *argv[])
 
 void test_mat ()
 {
-	int iArr[] = {1, 3, 5, 7};
-	Mat<int> iMat(2, 2, iArr);
+	int iArr1[] = {1, 3, 5, 7};
+	Mat<int> iMat1(2, 2, iArr1);
 
-	cout << iMat << endl;
-	cout << iMat.row () << " " << iMat.column () << endl;
+	int iArr2[] = {3, 32, 54, 23};
+	Mat<int> iMat2 (2, 2, iArr2);
+	//cout << iMat << endl;
+	iMat1.print ();
+	iMat2.print ();
+	//cout << iMat.row () << " " << iMat.column () << endl;
+	
+	iMat1 += iMat2;
+	iMat1.print ();
 }

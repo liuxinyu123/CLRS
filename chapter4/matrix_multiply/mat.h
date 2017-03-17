@@ -28,6 +28,10 @@ public:
 			return _col;
 		}
 
+		Mat<T>& operator+= (const Mat<T> &m);
+		Mat<T>& operator-= (const Mat<T> &m);
+	
+		void print () const;
 private:
 		void copyFrom (const T *arr, int sz);
 		bool check (const Mat<T> &m1, const Mat<T> &m2) const
