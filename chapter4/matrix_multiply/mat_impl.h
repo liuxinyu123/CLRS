@@ -128,6 +128,22 @@ Mat<T>& Mat<T>::operator*= (const Mat<T> &m)
 {
 	if (_col != m._row)
 		std::perror ("can not multiply\n");
-		
+	Mat<T> tmpMat (*this);
+	
+	for (int i = 0; i < _col * _row; ++i)
+	{
+		int r = i / _col; //所在行 从0开始
+		int c = i % _row; //所在列 从0开始
+
+		T sum = 0;
+		for (int j = r * _col; j < (r + 1) * _col; ++j)//第r行
+		{
+			for (int k = c; ;k += _row)
+				sum += tmpMat._data[j] * m._data[k];
+		}
+		_data[i] = sum;
+	}	
+
+	return *this;
 }
 #endif
