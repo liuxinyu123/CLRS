@@ -23,7 +23,16 @@ void Mat<T>::copyFrom (const T *arr, int sz)
 template<typename T>
 Mat<T>& Mat<T>::operator= (const Mat<T> &m)
 {
-	
+	if (!check (*this, m))
+		std::perror ("The row or column of this two mat is not equal\n");
+	if (_data != m._data)
+	{
+		_row = m._row;
+		_col = m._col;
+		copyFrom (m._data, _row * _col);
+	}	
+
+	return *this;
 }
 
 template<typename T>
@@ -114,4 +123,11 @@ Mat<T>& Mat<T>::operator-= (const Mat<T> &m)
 
 }
 
+template<typename T>
+Mat<T>& Mat<T>::operator*= (const Mat<T> &m)
+{
+	if (_col != m._row)
+		std::perror ("can not multiply\n");
+		
+}
 #endif
